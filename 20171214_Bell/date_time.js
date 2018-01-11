@@ -30,18 +30,10 @@ function date_time(id)
 
 function bell()
 {
-    
-    
-    var singleBell = new Audio('353233__sojan__ship-bell-single-ring(1).wav');
-    
-    
-  
-    
+    var singleBell = new Audio('353233__sojan__ship-bell-single-ring(1).wav');    
     var doubleBell = new Audio('353232__sojan__ship-bell-two-chimes.wav');
     
-    
-    
-    date = new Date;
+    date = new Date
     var h = date.getHours();
     var watch = (h)/4;
     watch = parseInt(watch);
@@ -53,66 +45,107 @@ function bell()
     
     for(var i = (watch*4); i<h ;i++)
     {
-        double =+1;
-        setTimeout(function () {
-        doubleBell.play(); 
-    }, 3000);
-       
+        double = double+1;   
     };
     
     if((watch*4) == h)
     {
-        double=+4;
-        
-       
- function play(
-  var playlist = [doubleBell, doubleBell,doubleBell,doubleBell];
-
-  var current = null;
-  var idx = 0;
-
-  function playSound(playlist) {
-      if (current === null || current.ended) {
-          // go to next
-          current = playlist[idx++];
-
-          // check if is the last of playlist and return to first
-          if (idx >= playlist.length+1){
-              current = null;
-              return;
-          }
-
-           // return to begin
-           current.currentTime=0;
-
-           // play
-           current.play();
-      }
-
-  }
-
-  setInterval(playSound, 1000);
-    };
+        double=double+4;
+    }
     
      if(parseInt(date.getMinutes>30))
      {
-         single =+1;
-        if(function isPlaying(doubleBell) { return doubleBell.paused; }){
-       singleBell.play(); 
-        }
+         single =1;
     };
     
+     if((double==4)&&(single==1))
+         {
+             alert("ok");
+             double =0;
+         };
+    
+    double=3;
+    single=0;
+    
     alert("DoubleBells = "+ double +"\n Single Bells = "+single);
-       
-    
-    switch (double | single) 
+    switch (double | single)
     {
-                           
+            case 0 | 1: 
+                var playlist = [singleBell];
+                play(playlist);
+            break;
+            
+            case 1 | 0: 
+                var playlist = [doubleBell];
+                play(playlist);
+            break;
+            
+            case 1 | 1: 
+                var playlist = [doubleBell,singleBell];
+                play(playlist);
+            break;
+            
+            case 2 | 0: 
+                var playlist = [doubleBell,doubleBell];
+                play(playlist);
+            break;
+            
+            //WISO DU HURE!!!!!!!!!!!!!!!!!!!!!!!!!!
+            case 2 | 1: 
+                var playlist = [doubleBell,doubleBell];
+                play(playlist);
+            break;
+            
+            
+           case 3 | 0: 
+                var playlist = [doubleBell,doubleBell,doubleBell];
+                 alert("101 DoubleBells = "+ double +"\n Single Bells = "+single);
+                play(playlist);
+            break;
+            
+            case 3 | 1: 
+                var playlist = [doubleBell,doubleBell,doubleBell,singleBell];
+                 alert("107 DoubleBells = "+ double +"\n Single Bells = "+single);
+                play(playlist);
+            break;
+            
+            case 4 | 0: 
+                var playlist = [doubleBell,doubleBell,doubleBell,doubleBell];
+                play(playlist);
+            break;
+            
+                
+            
     }
-        
-   
-   
-    
-    
-    
 }
+
+    function play(playlist){
+          
+      
+          var current = null;
+          var idx = 0;
+
+          function playSound() 
+        {
+              if (current === null || current.ended) {
+                  // go to next
+                  current = playlist[idx++];
+
+                  // check if is the last of playlist and return to first
+                  if (idx >= playlist.length+1){
+                      current = null;
+                      return;
+                  }
+
+                   // return to begin
+                   current.currentTime=0;
+
+                   // play
+                   current.play();
+              }
+
+          }setInterval(playSound, 1000);
+        };
+
+
+
