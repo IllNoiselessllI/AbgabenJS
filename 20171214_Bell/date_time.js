@@ -35,6 +35,8 @@ function bell()
     
     date = new Date
     var h = date.getHours();
+    var m = date.getMinutes();
+    m = parseInt(m);
     var watch = (h)/4;
     watch = parseInt(watch);
     var double=0;
@@ -53,9 +55,11 @@ function bell()
         double=double+4;
     }
     
-     if(parseInt(date.getMinutes>30))
+     console.log(m);
+    
+     if(m>30)
      {
-         single =1;
+         single = 1;
     };
     
      if((double==4)&&(single==1))
@@ -64,59 +68,42 @@ function bell()
              double =0;
          };
     
-    double=3;
-    single=0;
     
     alert("DoubleBells = "+ double +"\n Single Bells = "+single);
-    switch (double | single)
-    {
-            case 0 | 1: 
-                var playlist = [singleBell];
-                play(playlist);
-            break;
-            
-            case 1 | 0: 
-                var playlist = [doubleBell];
-                play(playlist);
-            break;
-            
-            case 1 | 1: 
-                var playlist = [doubleBell,singleBell];
-                play(playlist);
-            break;
-            
-            case 2 | 0: 
-                var playlist = [doubleBell,doubleBell];
-                play(playlist);
-            break;
-            
-            //WISO DU HURE!!!!!!!!!!!!!!!!!!!!!!!!!!
-            case 2 | 1: 
-                var playlist = [doubleBell,doubleBell];
-                play(playlist);
-            break;
-            
-            
-           case 3 | 0: 
-                var playlist = [doubleBell,doubleBell,doubleBell];
-                 alert("101 DoubleBells = "+ double +"\n Single Bells = "+single);
-                play(playlist);
-            break;
-            
-            case 3 | 1: 
-                var playlist = [doubleBell,doubleBell,doubleBell,singleBell];
-                 alert("107 DoubleBells = "+ double +"\n Single Bells = "+single);
-                play(playlist);
-            break;
-            
-            case 4 | 0: 
-                var playlist = [doubleBell,doubleBell,doubleBell,doubleBell];
-                play(playlist);
-            break;
-            
-                
-            
+    console.log(double, single);
+    if (double == 0 && single == 1){
+        var playlist = [singleBell];
+        play(playlist);
     }
+    if (double == 1 && single == 0){
+        var playlist = [doubleBell];
+        play(playlist);
+    }
+    if (double == 1 && single == 1){
+        var playlist = [doubleBell,singleBell];
+        play(playlist);
+    }
+    if (double == 2 && single == 0){
+     var playlist = [doubleBell,doubleBell];
+    play(playlist);   
+    }
+    if (double == 2 && single == 1){
+          var playlist = [doubleBell,doubleBell,singleBell];
+        play(playlist);
+    }
+    if (double == 3 && single == 0){
+     var playlist = [doubleBell,doubleBell,doubleBell];
+                play(playlist);   
+    }
+    if (double == 3 && single == 1){
+        var playlist = [doubleBell,doubleBell,doubleBell,singleBell];
+                play(playlist);
+    }
+    if (double == 4 && single == 0){
+        var playlist = [doubleBell,doubleBell,doubleBell,doubleBell];
+        play(playlist);
+    }
+   
 }
 
     function play(playlist){
