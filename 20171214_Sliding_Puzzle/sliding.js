@@ -9,54 +9,65 @@ tileCount = 3;
 
 var tileSize = size / tileCount;
 
-var clickLoc = new Object;
-clickLoc.x = 0;
-clickLoc.y = 0;
+var click = new Object;
+click.x = 0;
+click.y = 0;
 
-var emptyLoc = new Object;
-emptyLoc.x = 0;
-emptyLoc.y = 0;
+var empty = new Object;
+empty.x = 0;
+empty.y = 0;
 
 var solved = false;
 
-var boardParts;
+var board;
 setBoard();
 
 
 document.getElementById('puzzle').onclick = function(e) {
-  clickLoc.x = Math.floor((e.pageX - this.offsetLeft) / tileSize);
-  clickLoc.y = Math.floor((e.pageY - this.offsetTop) / tileSize);
-  if (distance(clickLoc.x, clickLoc.y, emptyLoc.x, emptyLoc.y) == 1) {
-    slideTile(emptyLoc, clickLoc);
+    
+  click.x = Math.floor((e.pageX - this.offsetLeft) / tileSize);
+  click.y = Math.floor((e.pageY - this.offsetTop) / tileSize);
+    
+  if (distance(click.x, click.y, empty.x, empty.y) == 1) {
+    slideTile(empty, click);
     drawTiles();
   }
+    
   if (solved) {
     setTimeout(function() {alert("Through the gates of hell!");}, 500);
   }
 };
 
 function setBoard() {
-  boardParts = new Array(tileCount);
-  for (var i = 0; i < tileCount; ++i) {
-    boardParts[i] = new Array(tileCount);
+  board = new Array(tileCount);
+    
+  for (var i = 0; i < tileCount; ++i) { 
+      
+    board[i] = new Array(tileCount);
+      
     for (var j = 0; j < tileCount; ++j) {
-      boardParts[i][j] = new Object;
-      boardParts[i][j].x = (tileCount - 1) - i;
-      boardParts[i][j].y = (tileCount - 1) - j;
+        
+      board[i][j] = new Object;
+      board[i][j].x = (tileCount - 1) - i;
+      board[i][j].y = (tileCount - 1) - j;
     }
   }
-  emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
-  emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
+  empty.x = board[tileCount - 1][tileCount - 1].x;
+  empty.y = board[tileCount - 1][tileCount - 1].y;
   solved = false;
 }
 
 function drawTiles() {
   context.clearRect ( 0 , 0 , size , size );
-  for (var i = 0; i < tileCount; ++i) {
+    
+  for (var i = 0; i < tileCount; ++i) { 
+      
     for (var j = 0; j < tileCount; ++j) {
-      var x = boardParts[i][j].x;
-      var y = boardParts[i][j].y;
-      if(i != emptyLoc.x || j != emptyLoc.y || solved == true) {
+        
+      var x = board[i][j].x;
+      var y = board[i][j].y;
+      if(i != empty.x || j != empty.y || solved == true) {
+          
         context.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize,
             i * tileSize, j * tileSize, tileSize, tileSize);
       }
@@ -65,15 +76,16 @@ function drawTiles() {
 }
 
 function distance(x1, y1, x2, y2) {
+    
   return Math.abs(x1 - x2) + Math.abs(y1 - y2);
 }
 
 function slideTile(toLoc, fromLoc) {
   if (!solved) {
-    boardParts[toLoc.x][toLoc.y].x = boardParts[fromLoc.x][fromLoc.y].x;
-    boardParts[toLoc.x][toLoc.y].y = boardParts[fromLoc.x][fromLoc.y].y;
-    boardParts[fromLoc.x][fromLoc.y].x = tileCount - 1;
-    boardParts[fromLoc.x][fromLoc.y].y = tileCount - 1;
+    board[toLoc.x][toLoc.y].x = board[fromLoc.x][fromLoc.y].x;
+    board[toLoc.x][toLoc.y].y = board[fromLoc.x][fromLoc.y].y;
+    board[fromLoc.x][fromLoc.y].x = tileCount - 1;
+    board[fromLoc.x][fromLoc.y].y = tileCount - 1;
     toLoc.x = fromLoc.x;
     toLoc.y = fromLoc.y;
     checkSolved();
@@ -83,10 +95,11 @@ function slideTile(toLoc, fromLoc) {
 function checkSolved() {
   var flag = true;
   for (var i = 0; i < tileCount; ++i) {
+      
     for (var j = 0; j < tileCount; ++j) {
-      if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
+        
+      if (board[i][j].x != i || board[i][j].y != j) 
         flag = false;
-      }
     }
   }
   solved = flag;
