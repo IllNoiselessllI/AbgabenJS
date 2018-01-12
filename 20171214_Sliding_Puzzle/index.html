@@ -1,16 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <title>Sliding Puzzle</title>
+  <style>
+  .picture {
+    border: 1px solid black;
+  }
+  </style>
+</head>
 <body>
-
-<canvas id="myCanvas" width="200" height="200" style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
-
-<script>
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-ctx.font = "30px Arial";
-ctx.fillText("Hello World",10,50);
-</script>
-
+  <div id="title">
+    <h2 style="color: red; text-align: center; font-size: 40;">PRIMO VICTORIA</h2>
+  </div>
+  <div id="main" class="main">
+    <canvas id="puzzle" width="800px" height="800px"></canvas>
+  </div>
+  <script src="sliding.js"></script>
 </body>
 </html>
